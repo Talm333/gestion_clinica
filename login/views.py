@@ -10,7 +10,7 @@ def login(request):
 
         if username == 'inacap' and password == 'clinica2025':
             user = True
-            return render(request, 'recepcion/registrar.html', {'user': username})
+            return redirect(request, 'recepcion/registrar.html', {'user': username})
         if user is False:
             return render(request, 'login/error.html', {'error': 'Credenciales inválidas'})
         
