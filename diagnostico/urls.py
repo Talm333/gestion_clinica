@@ -1,9 +1,8 @@
 from django.urls import path
-from .views import diagnostico, asignar, evaluar, listado
+from . import views
 
 urlpatterns = [
-    path('', diagnostico, name='diagnostico'),
-    path('asignar/', asignar, name='asignar_diagnostico'),
-    path('evaluar/', evaluar, name='evaluar_diagnostico'),
-    path('listado/', listado, name='listado_diagnostico'),
+    path('asignar/', views.asignar_equipo, name='asignar_equipo'),
+    path('evaluar/', views.evaluar_equipo, name='evaluar_equipo'),
+    path('listado/', views.listado_diagnosticos, name='listado_diagnosticos'),
 ]
