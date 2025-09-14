@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Mi Huerto{% endblock title%}</title>
+    <title>{% block title %}Gestión Clínica del PC{% endblock title%}</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -15,14 +15,74 @@
       integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
       crossorigin="anonymous"
     ></script>
+    <style>
+      body {
+        background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+        min-height: 100vh;
+      }
+      .navbar-brand {
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+      .navbar {
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      }
+      .navbar-nav .nav-link {
+        color: #fff !important;
+        font-weight: 500;
+        font-size: 1.1rem;
+        letter-spacing: 0.5px;
+        transition: color 0.2s;
+      }
+      .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+        color: #ffe082 !important;
+        text-decoration: underline;
+      }
+      .card {
+        border-radius: 1rem;
+      }
+      .btn-primary, .btn-success, .btn-info, .btn-warning, .btn-secondary {
+        border-radius: 2rem;
+      }
+      .badge {
+        font-size: 1rem;
+      }
+      .table {
+        border-radius: 1rem;
+        overflow: hidden;
+      }
+    </style>
     {% block extra_head %}{% endblock extra_head %}
   </head>
   <body>
-    <div class = "container mt-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/recepcion/listado/">Clínica del PC</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/recepcion/listado/">Recepción</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/diagnostico/listado/">Diagnóstico</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/entrega/verificar/">Entrega</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login/logout/">Cerrar sesión</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container mb-5">
         {% block content %}
-
         {% endblock content %}
     </div>
-    
   </body>
 </html>
