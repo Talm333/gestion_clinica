@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+<<<<<<< HEAD
 EQUIPOS = []
 from diagnostico.views import ASIGNACIONES
 from entrega.views import ESTADOS_ENTREGA
@@ -7,6 +8,15 @@ from entrega.views import ESTADOS_ENTREGA
 def registrar_equipo(request):
     if not request.session.get('autenticado'):
         return redirect('login')
+=======
+
+# creamos una lista global para almacenar los equipos registrados
+EQUIPOS = []
+
+def registrar_equipo(request):
+    if not request.session.get('autenticado'):
+        return redirect('/login/login.html')
+>>>>>>> e99703f12acfebac4082134a4372a8fcc356d997
     usuario = request.session.get('username', 'Invitado')
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
@@ -21,6 +31,7 @@ def registrar_equipo(request):
 
 def listado_equipos(request):
     if not request.session.get('autenticado'):
+<<<<<<< HEAD
         return redirect('login')
     usuario = request.session.get('username', 'Invitado')
     asignados = {a['equipo']: a['estudiante'] for a in ASIGNACIONES}
@@ -51,3 +62,16 @@ def detalle_equipo(request, nombre):
             estudiante_asignado = a['estudiante']
             break
     return render(request, 'recepcion/detalle.html', {'equipo': equipo, 'usuario': usuario, 'estudiante_asignado': estudiante_asignado})
+=======
+        return redirect('/login/login.html')
+    usuario = request.session.get('username', 'Invitado')
+    return render(request, 'recepcion/listado.html', {'equipos': EQUIPOS, 'usuario': usuario})
+
+def detalle_equipo(request, nombre):
+    if not request.session.get('autenticado'):
+        return redirect('/login/login.html')
+    usuario = request.session.get('username', 'Invitado')
+    #revisa cada equipo en la lista y encuentra el que coincide con el nombre
+    equipo = next((e for e in EQUIPOS if e['nombre'] == nombre), None)
+    return render(request, 'recepcion/detalle.html', {'equipo': equipo, 'usuario': usuario})
+>>>>>>> e99703f12acfebac4082134a4372a8fcc356d997

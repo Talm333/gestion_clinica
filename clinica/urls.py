@@ -25,7 +25,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('', include('login.urls')),
+<<<<<<< HEAD
     path('', include('recepcion.urls')),
     path('', include('entrega.urls')),
     path('', include('diagnostico.urls')),
+=======
+    path('recepcion/', include('recepcion.urls')),
+    path('entrega/', include('entrega.urls')),
+    path('diagnostico/', include('diagnostico.urls')),
+>>>>>>> e99703f12acfebac4082134a4372a8fcc356d997
 ]

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 diagnosticos = []
 from django.shortcuts import render, redirect
 diagnosticos = []
@@ -31,12 +32,30 @@ def evaluar_equipo(request):
     if not request.session.get('autenticado'):
         return redirect('login')
     equipos_asignados = [a['equipo'] for a in ASIGNACIONES]
+=======
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+
+# Simulación de datos en memoria
+diagnosticos = []
+
+def asignar_equipo(request):
+    if request.method == 'POST':
+        estudiante = request.POST.get('estudiante')
+        equipo = request.POST.get('equipo')
+        # Aquí podrías guardar la asignación si lo necesitas
+        return redirect('evaluar_equipo')
+    return render(request, 'diagnostico/asignar.html')
+
+def evaluar_equipo(request):
+>>>>>>> e99703f12acfebac4082134a4372a8fcc356d997
     if request.method == 'POST':
         estudiante = request.POST.get('estudiante')
         equipo = request.POST.get('equipo')
         diagnostico = request.POST.get('diagnostico')
         solucion = request.POST.get('solucion')
         tipo_solucion = request.POST.get('tipo_solucion')
+<<<<<<< HEAD
         if estudiante and equipo and diagnostico and solucion and tipo_solucion:
             diagnosticos.append({
                 'estudiante': estudiante,
@@ -54,4 +73,17 @@ def evaluar_equipo(request):
 def listado_diagnosticos(request):
     if not request.session.get('autenticado'):
         return redirect('login')
+=======
+        diagnosticos.append({
+            'estudiante': estudiante,
+            'equipo': equipo,
+            'diagnostico': diagnostico,
+            'solucion': solucion,
+            'tipo_solucion': tipo_solucion,
+        })
+        return redirect('listado_diagnosticos')
+    return render(request, 'diagnostico/evaluar.html')
+
+def listado_diagnosticos(request):
+>>>>>>> e99703f12acfebac4082134a4372a8fcc356d997
     return render(request, 'diagnostico/diagnostico_listado.html', {'diagnosticos': diagnosticos})

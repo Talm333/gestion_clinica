@@ -5,6 +5,7 @@
     {% csrf_token %}
     <div class="mb-3">
         <label class="form-label">Estudiante:</label>
+<<<<<<< HEAD
         <select name="estudiante" class="form-select">
             <option value="">Selecciona estudiante</option>
             {% for est in estudiantes %}
@@ -28,4 +29,14 @@
 {% if mensaje %}
     <div class="alert alert-success mt-3">{{ mensaje }}</div>
 {% endif %}
+=======
+        <input type="text" name="estudiante" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Equipo:</label>
+        <input type="text" name="equipo" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Asignar</button>
+</form>
+>>>>>>> e99703f12acfebac4082134a4372a8fcc356d997
 {% endblock content %}

@@ -16,5 +16,9 @@ def login(request):
     return render(request, 'login/login.html')
 
 def logout(request):
+<<<<<<< HEAD
+=======
+    # lo que hace es eliminar toda la informacion de la sesion es como eliminar el cache del navegador
+>>>>>>> e99703f12acfebac4082134a4372a8fcc356d997
     request.session.flush()
     return redirect('/login/login.html')
