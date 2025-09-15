@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import verificar, reporte, comprobante
+from . import views
 
 urlpatterns = [
-    path('verificar/', verificar, name='verificar_entrega'),
-    path('reporte/', reporte, name='reporte_entrega'),
-    path('comprobante/', comprobante, name='comprobante_entrega'),
+    path('verificar/', views.verificar_equipo, name='verificar_equipo'),
+    path('reporte/', views.reporte_entrega, name='reporte_entrega'),
+    path('comprobante/', views.comprobante_entrega, name='comprobante_entrega'),
 ]

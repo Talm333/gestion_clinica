@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Comprobante de entrega</h2>
+{% if comprobante %}
+    <div class="card p-4 shadow-sm">
+        <p><strong>Cliente:</strong> {{ comprobante.cliente }}</p>
+        <p><strong>Equipo:</strong> {{ comprobante.equipo }}</p>
+        <p><strong>Diagnóstico:</strong> {{ comprobante.diagnostico }}</p>
+        <p><strong>Estado final:</strong> {{ comprobante.estado_final }}</p>
+        <p><strong>Observaciones:</strong> {{ comprobante.observaciones }}</p>
+    </div>
+    <a href="#" class="btn btn-secondary mt-3" onclick="window.print()">Descargar/Imprimir PDF</a>
+{% else %}
+    <div class="alert alert-warning">No hay comprobante disponible.</div>
+{% endif %}
+{% endblock content %} 
