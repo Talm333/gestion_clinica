@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Evaluar equipo</h2>
+<form method="post" class="card p-4 shadow-sm">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Estudiante:</label>
+        <input type="text" name="estudiante" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Equipo:</label>
+        <input type="text" name="equipo" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Diagnóstico:</label>
+        <input type="text" name="diagnostico" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Solución:</label>
+        <input type="text" name="solucion" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Tipo de solución:</label>
+        <select name="tipo_solucion" class="form-select" required>
+            <option value="correctiva">Correctiva</option>
+            <option value="preventiva">Preventiva</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Registrar diagnóstico</button>
+</form>
+{% endblock content %} 
