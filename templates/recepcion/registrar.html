@@ -1,13 +1,35 @@
 {% extends "base.html" %}
-{%block title %}Registar{% endblock %}
+{% block title %}Registrar Equipo{% endblock %}
 {% block content %}
-<h2>usuario : {{ user }}</h2>
-<div class="form-container">
-    <h2>Registrar Nuevo Paciente</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="text" name="nombre" id="nombre">
-        <button type="submit">Registrar</button>
-    </form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Registrar Equipo</h4>
+                    <span class="badge bg-light text-dark">Usuario: {{ usuario }}</span>
+                    <a href="/recepcion/listado/" class="btn btn-light btn-sm ms-2">Ver equipos</a>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">Nombre del cliente:</label>
+                            <input type="text" name="nombre" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tipo de equipo:</label>
+                            <input type="text" name="tipo" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Problema informado:</label>
+                            <input type="text" name="problema" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Registrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

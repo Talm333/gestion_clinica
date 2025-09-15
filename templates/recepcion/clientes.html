@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Clientes Registrados{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Clientes Registrados</h4>
+                    <span class="badge bg-light text-dark">Usuario: {{ usuario }}</span>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for cliente in clientes %}
+                            <li class="list-group-item">{{ cliente }}</li>
+                        {% empty %}
+                            <li class="list-group-item text-muted">No hay clientes registrados.</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="/recepcion/listado/" class="btn btn-secondary mt-3">Volver a recepción</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

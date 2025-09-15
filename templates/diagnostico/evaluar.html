@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Evaluar equipo</h2>
+<form method="post" class="card p-4 shadow-sm">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Estudiante:</label>
+        <select name="estudiante" class="form-select" required>
+            <option value="">Selecciona estudiante</option>
+            {% for est in estudiantes %}
+                <option value="{{ est }}">{{ est }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Equipo:</label>
+        <select name="equipo" class="form-select" required>
+            <option value="">Selecciona equipo</option>
+            {% for eq in equipos %}
+                <option value="{{ eq }}">{{ eq }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Diagnóstico:</label>
+        <input type="text" name="diagnostico" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Solución:</label>
+        <input type="text" name="solucion" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Tipo de solución:</label>
+        <select name="tipo_solucion" class="form-select" required>
+            <option value="correctiva">Correctiva</option>
+            <option value="preventiva">Preventiva</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Registrar diagnóstico</button>
+</form>
+{% endblock content %} 

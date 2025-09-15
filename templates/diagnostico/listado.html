@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Listado de Diagnósticos{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Diagnósticos realizados</h2>
+        <div>
+            <a href="/diagnostico/evaluar/" class="btn btn-primary me-2">Registrar diagnóstico</a>
+            <a href="/recepcion/listado/" class="btn btn-secondary">Volver a recepción</a>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Estudiante</th>
+                <th>Equipo</th>
+                <th>Diagnóstico</th>
+                <th>Solución</th>
+                <th>Tipo de solución</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for diag in diagnosticos %}
+            <tr>
+                <td>{{ diag.estudiante }}</td>
+                <td>{{ diag.equipo }}</td>
+                <td>{{ diag.diagnostico }}</td>
+                <td>{{ diag.solucion }}</td>
+                <td>
+                    {% if diag.tipo_solucion == 'correctiva' %}
+                        <span class="badge bg-danger">Correctiva</span>
+                    {% else %}
+                        <span class="badge bg-success">Preventiva</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

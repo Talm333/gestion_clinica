@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Asignar equipo a estudiante</h2>
+<form method="post" class="card p-4 shadow-sm">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Estudiante:</label>
+        <select name="estudiante" class="form-select">
+            <option value="">Selecciona estudiante</option>
+            {% for est in estudiantes %}
+                <option value="{{ est }}">{{ est }}</option>
+            {% endfor %}
+        </select>
+        <small class="form-text text-muted">O agrega uno nuevo:</small>
+        <input type="text" name="nuevo_estudiante" class="form-control mt-2" placeholder="Nuevo estudiante">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Equipo:</label>
+        <select name="equipo" class="form-select" required>
+            <option value="">Selecciona equipo</option>
+            {% for eq in equipos %}
+                <option value="{{ eq.nombre }}">{{ eq.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Asignar</button>
+</form>
+{% if mensaje %}
+    <div class="alert alert-success mt-3">{{ mensaje }}</div>
+{% endif %}
+{% endblock content %}
