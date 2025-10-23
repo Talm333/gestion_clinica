@@ -1,16 +1,15 @@
 from django.shortcuts import render, redirect
-
-# Simulación de datos en memoria
-equipos_entregados = []
+from .models import Entrega
+from recepcion.models import equipo
 
 def verificar_equipo(request):
     estado = None
     cliente = ''
     if request.method == 'GET' and 'cliente' in request.GET:
         cliente = request.GET.get('cliente')
-        equipo = next((e for e in equipos_entregados if e['cliente'] == cliente), None)
-        if equipo:
-            estado = equipo
+        entrega = Entrega.objects.filter(cliente=cliente).first()
+        if entrega:
+            estado = entrega
         else:
             estado = 'No encontrado'
     return render(request, 'entrega/verificar.html', {'estado': estado, 'cliente': cliente})
@@ -19,22 +18,23 @@ def reporte_entrega(request):
     mensaje = ''
     if request.method == 'POST':
         cliente = request.POST.get('cliente')
-        equipo = request.POST.get('equipo')
+        equipo_id = request.POST.get('equipo')
         diagnostico = request.POST.get('diagnostico')
         estado_final = request.POST.get('estado_final')
         observaciones = request.POST.get('observaciones')
-        equipos_entregados.append({
-            'cliente': cliente,
-            'equipo': equipo,
-            'diagnostico': diagnostico,
-            'estado_final': estado_final,
-            'observaciones': observaciones,
-        })
+        equipo_obj = equipo.objects.get(id=equipo_id)
+        Entrega.objects.create(
+            cliente=cliente,
+            equipo=equipo_obj,
+            diagnostico=diagnostico,
+            estado_final=estado_final,
+            observaciones=observaciones
+        )
         mensaje = 'Registro exitoso'
         return redirect('comprobante_entrega')
     return render(request, 'entrega/reporte.html', {'mensaje': mensaje})
 
 def comprobante_entrega(request):
     # Muestra el último registro como comprobante
-    comprobante = equipos_entregados[-1] if equipos_entregados else None
+    comprobante = Entrega.objects.last()
     return render(request, 'entrega/comprobante.html', {'comprobante': comprobante})
