@@ -1,19 +1,12 @@
 
+
 from django.db import models
 
-class equipo(models.Model):
-    nombre = models.CharField(max_length=100)
-    problema = models.CharField(max_length=100)
-    
-    def __str__(self):
-        return f"{self.nombre} ({self.problema})"
-
-class cliente(models.Model):
-    nombre = models.CharField(max_length=100)
-    apellido = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
-    telefono = models.CharField(max_length=30)
-    equipo = models.ForeignKey(equipo, on_delete=models.CASCADE) 
+class Equipo(models.Model):
+    cliente = models.CharField(max_length=100)
+    tipo = models.CharField(max_length=50)
+    problema = models.TextField()
+    fecha = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.nombre} {self.apellido}"
+        return self.cliente

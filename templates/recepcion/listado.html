@@ -18,7 +18,7 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>Nombre</th>
+                <th>Cliente</th>
                 <th>Tipo</th>
                 <th>Problema</th>
                 <th>Detalle</th>
@@ -27,10 +27,10 @@
         <tbody>
         {% for equipo in equipos %}
             <tr>
-                <td>{{ equipo.nombre }}</td>
+                <td>{{ equipo.cliente }}</td>
                 <td>{{ equipo.tipo }}</td>
                 <td>{{ equipo.problema }}</td>
-                <td><a href="/recepcion/detalle/{{ equipo.nombre }}/" class="btn btn-info btn-sm">Ver detalle</a></td>
+                <td><a href="/recepcion/detalle/{{ equipo.cliente }}/" class="btn btn-info btn-sm">Ver detalle</a></td>
             </tr>
         {% endfor %}
         </tbody>
