@@ -1,4 +1,5 @@
 from django.db import models
+from recepcion.models import equipo
 
 from recepcion.models import equipo
 
