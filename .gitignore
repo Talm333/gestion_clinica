@@ -1,0 +1,8 @@
+.env
+entorno_clinica
+.entorno_clinica
+mi_entorno/ 
+
+db.sqlite3
+__pycache__/
+
