@@ -2,8 +2,8 @@ from django.db import models
 
 # Create your models here.
 class rol(models.Model):
-    nombre = models.CharField(max_length=100)
-    descripcion = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100, unique=True, verbose_name="Nombre del rol")
+    descripcion = models.CharField(max_length=100, verbose_name="Descripción")
 
     def __str__(self):
         return self.nombre
