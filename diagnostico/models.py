@@ -2,7 +2,11 @@ from django.db import models
 from recepcion.models import Equipo
 
 class Estudiante(models.Model):
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100, unique=True, verbose_name='Nombre del estudiante')
+
+    class Meta:
+        verbose_name = 'Estudiante'
+        verbose_name_plural = 'Estudiantes'
 
     def __str__(self):
         return self.nombre
