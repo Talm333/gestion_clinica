@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Entrega
+from .models import entrega
 from recepcion.models import equipo
 
 def verificar_equipo(request):
