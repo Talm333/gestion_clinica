@@ -29,14 +29,13 @@ SECRET_KEY = 'django-insecure--_issx16z$t*r%yfavv4@27iv9%pka!627!(4fa270uxmq73t-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-render_host = os.environ.get('RENDER'),  # obtén el valor de la variable de entorno RENDER
+render_env = os.environ.get('RENDER')
 
-if render_host:
-    # Si existe la variable RENDER, úsala como dominio permitido
-    ALLOWED_HOSTS = [render_host, 'localhost', '127.0.0.1']
+if render_env:
+    allowed = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+    ALLOWED_HOSTS = [allowed] if allowed else ['*']
 else:
-    # En desarrollo local permite todos
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
