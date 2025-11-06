@@ -29,11 +29,12 @@ SECRET_KEY = 'django-insecure--_issx16z$t*r%yfavv4@27iv9%pka!627!(4fa270uxmq73t-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'gestion-clinica-k2re.onrender.com',
-    'localhost',
-    '127.0.0.1'
-]
+external_host = os.getenv('RENDER_EXTERNAL_HOSTNAME')
+
+if external_host:
+    ALLOWED_HOSTS = [external_host, 'localhost', '127.0.0.1']
+else:
+    ALLOWED_HOSTS = ['*']
 
 
 # Application definition
