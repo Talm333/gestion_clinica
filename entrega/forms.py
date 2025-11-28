@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from .models import Entrega
 from diagnostico.models import Diagnostico
 
@@ -14,3 +15,9 @@ class EntregaForm(forms.ModelForm):
     class Meta:
         model = Entrega
         fields = ['diagnostico']
+
+    def clean_diagnostico(self):
+        diagnostico = self.cleaned_data.get('diagnostico')
+        if not diagnostico:
+            raise ValidationError('Debe seleccionar un diagnóstico para entregar.')
+        return diagnostico

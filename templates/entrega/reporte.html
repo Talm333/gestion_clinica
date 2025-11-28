@@ -11,13 +11,20 @@
 </div>
 
 <form method="post" class="card p-4 shadow-sm">
-  {% csrf_token %} {% if form.errors %}
+  {% csrf_token %} 
+  {% if form.non_field_errors %}
+  <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+  {% endif %}
+  {% if form.errors %}
   <div class="alert alert-danger">{{ form.errors }}</div>
   {% endif %}
 
   <div class="mb-3">
     <label class="form-label">{{ form.diagnostico.label }}:</label>
     {{ form.diagnostico }}
+    {% if form.diagnostico.errors %}
+    <div class="invalid-feedback d-block">{{ form.diagnostico.errors }}</div>
+    {% endif %}
   </div>
 
   <button type="submit" class="btn btn-primary rounded-pill">

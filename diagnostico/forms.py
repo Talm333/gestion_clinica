@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from .models import Diagnostico, Estudiante, Asignacion
 from recepcion.models import Equipo
 
@@ -28,6 +29,25 @@ class AsignacionForm(forms.ModelForm):
         model = Asignacion
         fields = ['equipo', 'estudiante', 'nuevo_estudiante']
 
+    def clean(self):
+        cleaned = super().clean()
+        nuevo = cleaned.get('nuevo_estudiante')
+        estudiante = cleaned.get('estudiante')
+
+        if not nuevo and not estudiante:
+            raise ValidationError('Debe seleccionar un estudiante existente o ingresar uno nuevo.')
+
+        if nuevo:
+            nuevo_nombre = nuevo.strip()
+            if len(nuevo_nombre) < 3:
+                self.add_error('nuevo_estudiante', 'El nombre del estudiante debe tener al menos 3 caracteres.')
+            else:
+                # crear o recuperar estudiante y asignarlo
+                estudiante_obj, _ = Estudiante.objects.get_or_create(nombre=nuevo_nombre)
+                cleaned['estudiante'] = estudiante_obj
+
+        return cleaned
+
 class SeleccionEquipoForm(forms.Form):
     # formulario solo para seleccionar qué equipo evaluar
     equipo = forms.ModelChoiceField(
@@ -51,3 +71,19 @@ class DiagnosticoForm(forms.ModelForm):
             'solucion': 'Solución Recomendada',
             'tipo_solucion': 'Tipo de Solución',
         }
+
+    def clean_diagnostico(self):
+        diag = self.cleaned_data.get('diagnostico', '')
+        if diag is None:
+            return diag
+        if len(diag.strip()) < 10:
+            raise ValidationError('El diagnóstico debe contener al menos 10 caracteres.')
+        return diag.strip()
+
+    def clean_solucion(self):
+        sol = self.cleaned_data.get('solucion', '')
+        if sol is None:
+            return sol
+        if len(sol.strip()) < 10:
+            raise ValidationError('La solución debe contener al menos 10 caracteres.')
+        return sol.strip()

@@ -16,17 +16,29 @@
         <div class="card-body">
           <form method="post">
             {% csrf_token %}
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
             <div class="mb-3">
               <label class="form-label">{{ form.cliente.label }}:</label>
               {{ form.cliente }}
+              {% if form.cliente.errors %}
+              <div class="invalid-feedback d-block">{{ form.cliente.errors }}</div>
+              {% endif %}
             </div>
             <div class="mb-3">
               <label class="form-label">{{ form.tipo.label }}:</label>
               {{ form.tipo }}
+              {% if form.tipo.errors %}
+              <div class="invalid-feedback d-block">{{ form.tipo.errors }}</div>
+              {% endif %}
             </div>
             <div class="mb-3">
               <label class="form-label">{{ form.problema.label }}:</label>
               {{ form.problema }}
+              {% if form.problema.errors %}
+              <div class="invalid-feedback d-block">{{ form.problema.errors }}</div>
+              {% endif %}
             </div>
             <button type="submit" class="btn btn-success w-100">
               Registrar

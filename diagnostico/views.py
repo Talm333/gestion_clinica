@@ -8,27 +8,19 @@ def asignar_equipo(request):
     if not request.session.get('autenticado'):
         return redirect('/login/login.html')
     
-    form = AsignacionForm()
-    
     if request.method == 'POST':
         form = AsignacionForm(request.POST)
         if form.is_valid():
-            # validamos si se ingreso un estudiante nuevo o se selecciono uno
-            nuevo_nombre = request.POST.get('nuevo_estudiante')
-            estudiante_seleccionado = request.POST.get('estudiante')
-
-            if not nuevo_nombre and not estudiante_seleccionado:
-                messages.error(request, "Debe seleccionar un estudiante o ingresar uno nuevo.")
-                return render(request, 'diagnostico/asignar.html', {'form': form})
-            
-            if nuevo_nombre:
-                estudiante_obj, _ = Estudiante.objects.get_or_create(nombre=nuevo_nombre)
-                form.instance.estudiante = estudiante_obj
-            
-            form.save()
+            asignacion = form.save(commit=False)
+            estudiante = form.cleaned_data.get('estudiante')
+            if estudiante:
+                asignacion.estudiante = estudiante
+            asignacion.save()
             messages.success(request, "Equipo asignado correctamente.")
             return redirect('listado_diagnosticos')
-            
+    else:
+        form = AsignacionForm()
+
     return render(request, 'diagnostico/asignar.html', {'form': form})
 
 def evaluar_equipo(request):
