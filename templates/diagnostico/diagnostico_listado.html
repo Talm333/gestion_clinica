@@ -1,30 +1,36 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <h2>Listado de diagnósticos realizados</h2>
 <table class="table table-striped">
-    <tr>
-        <th>Estudiante</th>
-        <th>Equipo</th>
-        <th>Diagnóstico</th>
-        <th>Solución</th>
-        <th>Tipo de solución</th>
-    </tr>
-    {% for d in diagnosticos %}
-    <tr>
-        <td>{{ d.estudiante.nombre }}</td>
-        <td>{{ d.equipo }}</td>
-        <td>{{ d.diagnostico }}</td>
-        <td>{{ d.solucion }}</td>
-        <td>
-            {% if d.tipo_solucion == 'correctiva' %}
-                <span class="badge bg-danger">Correctiva</span>
-            {% else %}
-                <span class="badge bg-success">Preventiva</span>
-            {% endif %}
-        </td>
-    </tr>
-    {% empty %}
-    <tr><td colspan="5">No hay diagnósticos registrados.</td></tr>
-    {% endfor %}
+  <tr>
+    <th>Estudiante</th>
+    <th>Equipo</th>
+    <th>Diagnóstico</th>
+    <th>Solución</th>
+    <th>Tipo de solución</th>
+  </tr>
+  {% for d in diagnosticos %}
+  <tr>
+    <td>{{ d.estudiante.nombre }}</td>
+    <td>{{ d.equipo }}</td>
+    <td>{{ d.diagnostico }}</td>
+    <td>{{ d.solucion }}</td>
+    <td>
+      {% if d.tipo_solucion == 'correctiva' %}
+      <span class="badge bg-danger">Correctiva</span>
+      {% else %}
+      <span class="badge bg-success">Preventiva</span>
+      {% endif %}
+    </td>
+  </tr>
+  {% empty %}
+  <tr>
+    <td colspan="5">No hay diagnósticos registrados.</td>
+  </tr>
+  {% endfor %}
 </table>
+<div class="mt-3">
+  <a href="/recepcion/listado/" class="btn btn-secondary rounded-pill"
+    >Volver a Recepción</a
+  >
+</div>
 {% endblock content %}

@@ -1,44 +1,72 @@
-{% extends "base.html" %}
-{% block title %}Listado de Equipos{% endblock %}
+{% extends "base.html" %} {% block title %}Listado de Equipos{% endblock %} 
 {% block content %}
 <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Listado de Equipos Recibidos</h2>
-        <div>
-            <span class="badge bg-light text-dark me-2">Usuario: {{ usuario }}</span>
-            <a href="/recepcion/registrar/" class="btn btn-primary">Registrar nuevo equipo</a>
-        </div>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Listado de Equipos Recibidos</h2>
+    <div>
+      <span class="badge bg-light text-dark me-2">Usuario: {{ usuario }}</span>
+      <a href="/recepcion/registrar/" class="btn btn-primary rounded-pill"
+        >Registrar nuevo equipo</a
+      >
     </div>
-    <div class="mb-4">
-        <a href="/diagnostico/asignar/" class="btn btn-outline-info me-2">Asignar diagnóstico</a>
-        <a href="/diagnostico/evaluar/" class="btn btn-outline-success me-2">Registrar diagnóstico</a>
-        <a href="/diagnostico/listado/" class="btn btn-outline-secondary me-2">Ver diagnósticos</a>
-        <a href="/entrega/verificar/" class="btn btn-outline-warning">Entrega de equipos</a>
-    </div>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Cliente</th>
-                <th>Tipo</th>
-                <th>Problema</th>
-                <th>Detalle</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for equipo in equipos %}
-            <tr>
-                <td>{{ equipo.cliente }}</td>
-                <td>{{ equipo.tipo }}</td>
-                <td>{{ equipo.problema }}</td>
-                <td><a href="/recepcion/detalle/{{ equipo.cliente }}/" class="btn btn-info btn-sm">Ver detalle</a></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-success mt-3">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+  </div>
+  <div class="mb-4">
+    <a href="/diagnostico/asignar/" class="btn btn-primary me-2 rounded-pill"
+      >Asignar equipo</a
+    >
+    <a href="/diagnostico/evaluar/" class="btn btn-success me-2 rounded-pill"
+      >Registrar diagnóstico</a
+    >
+    <a href="/diagnostico/listado/" class="btn btn-secondary me-2 rounded-pill"
+      >Ver diagnósticos</a
+    >
+    <a href="/entrega/verificar/" class="btn btn-warning rounded-pill"
+      >Entrega de equipos</a
+    >
+  </div>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Tipo</th>
+        <th>Problema</th>
+        <th>Fecha</th>
+        <th>Detalle</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for equipo in equipos %}
+      <tr>
+        <td>{{ equipo.cliente }}</td>
+        <td>{{ equipo.tipo }}</td>
+        <td>{{ equipo.problema }}</td>
+        <td>{{ equipo.fecha|date:"d/m/Y H:i" }}</td>
+        <td>
+          <a
+            href="{% url 'detalle_equipo' equipo.id %}"
+            class="btn btn-info btn-sm rounded-pill"
+            >Ver detalle</a
+          >
+        </td>
+        <td>
+          <a
+            href="{% url 'editar_equipo' equipo.id %}"
+            class="btn btn-warning btn-sm rounded-pill"
+            >Editar</a
+          >
+          <a
+            href="{% url 'eliminar_equipo' equipo.id %}"
+            class="btn btn-danger btn-sm rounded-pill"
+            >Eliminar</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% if messages %} {% for message in messages %}
+  <div class="alert alert-success mt-3">{{ message }}</div>
+  {% endfor %} {% endif %}
 </div>
 {% endblock %}

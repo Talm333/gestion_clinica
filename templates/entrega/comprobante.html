@@ -1,16 +1,51 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>Comprobante de entrega</h2>
-{% if comprobante %}
-    <div class="card p-4 shadow-sm">
-        <p><strong>Cliente:</strong> {{ comprobante.cliente }}</p>
-        <p><strong>Equipo:</strong> {{ comprobante.equipo }}</p>
-        <p><strong>Diagnóstico:</strong> {{ comprobante.diagnostico }}</p>
-        <p><strong>Estado final:</strong> {{ comprobante.estado_final }}</p>
-        <p><strong>Observaciones:</strong> {{ comprobante.observaciones }}</p>
-    </div>
-    <a href="#" class="btn btn-secondary mt-3" onclick="window.print()">Descargar/Imprimir PDF</a>
-{% else %}
-    <div class="alert alert-warning">No hay comprobante disponible.</div>
-{% endif %}
-{% endblock content %} 
+{% extends "base.html" %} {% block content %}
+
+<div
+  style="
+    border: 1px solid #000;
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+  "
+>
+  <h2 style="text-align: center; text-decoration: underline">
+    COMPROBANTE DE ENTREGA
+  </h2>
+
+  <p><strong>Folio:</strong> #{{ comprobante.id }}</p>
+  <p>
+    <strong>Fecha:</strong> {{ comprobante.fecha_entrega|date:"d/m/Y H:i" }}
+  </p>
+
+  <hr />
+
+  <h3>Datos del Cliente</h3>
+  <p><strong>Cliente:</strong> {{ comprobante.diagnostico.equipo.cliente }}</p>
+  <p><strong>Equipo:</strong> {{ comprobante.diagnostico.equipo.tipo }}</p>
+  <p>
+    <strong>Problema:</strong> {{ comprobante.diagnostico.equipo.problema }}
+  </p>
+
+  <hr />
+
+  <h3>Detalle del Servicio</h3>
+  <p>
+    <strong>Técnico:</strong> {{ comprobante.diagnostico.estudiante.nombre }}
+  </p>
+  <p><strong>Diagnóstico:</strong> {{ comprobante.diagnostico.diagnostico }}</p>
+  <p><strong>Solución:</strong> {{ comprobante.diagnostico.solucion }}</p>
+  <p>
+    <strong>Tipo Solución:</strong> {{comprobante.diagnostico.tipo_solucion }}
+  </p>
+  <p><strong>Estado:</strong> {{ comprobante.get_estado_display }}</p>
+
+  <hr />
+
+  <div style="text-align: center; margin-top: 30px">
+    <a href="{% url 'inicio' %}" class="btn btn-secondary rounded-pill"
+      >Volver</a
+    >
+  </div>
+</div>
+
+{% endblock content %}

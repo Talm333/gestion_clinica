@@ -1,35 +1,64 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>Evaluar equipo</h2>
+{% extends "base.html" %} {% block content %} {% if form %}
+<h2>Evaluar Equipo</h2>
+
+<div class="card mb-4">
+  <div class="card-header bg-info text-white">Datos de la Asignación</div>
+  <div class="card-body">
+    <p><strong>Equipo:</strong> {{ asignacion.equipo }}</p>
+    <p><strong>Cliente:</strong> {{ asignacion.equipo.cliente }}</p>
+    <p><strong>Problema:</strong> {{ asignacion.equipo.problema }}</p>
+    <p>
+      <strong>Estudiante Asignado:</strong> {{ asignacion.estudiante.nombre }}
+    </p>
+  </div>
+</div>
+
 <form method="post" class="card p-4 shadow-sm">
-    {% csrf_token %}
-    <div class="mb-3">
-        <label class="form-label">Estudiante:</label>
-        <select name="estudiante" class="form-select" required>
-            {% for estudiante in estudiantes %}
-            <option value="{{ estudiante.id }}">{{ estudiante.nombre }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Equipo:</label>
-        <input type="text" name="equipo" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Diagnóstico:</label>
-        <input type="text" name="diagnostico" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Solución:</label>
-        <input type="text" name="solucion" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Tipo de solución:</label>
-        <select name="tipo_solucion" class="form-select" required>
-            <option value="correctiva">Correctiva</option>
-            <option value="preventiva">Preventiva</option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-success">Registrar diagnóstico</button>
+  {% csrf_token %}
+
+  <div class="mb-3">
+    <label class="form-label">{{ form.diagnostico.label }}:</label>
+    {{ form.diagnostico }}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">{{ form.solucion.label }}:</label>
+    {{ form.solucion }}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">{{ form.tipo_solucion.label }}:</label>
+    {{ form.tipo_solucion }}
+  </div>
+
+  <button type="submit" class="btn btn-success rounded-pill">
+    Registrar Diagnóstico Final
+  </button>
+  <a href="/recepcion/listado/" class="btn btn-secondary rounded-pill ms-2"
+    >Cancelar</a
+  >
 </form>
-{% endblock content %} 
+
+{% elif seleccion_form %}
+<h2>Seleccionar Equipo para Evaluar</h2>
+<p class="text-muted">
+  Seleccione un equipo asignado para proceder con el diagnóstico.
+</p>
+
+<form method="post" class="card p-4 shadow-sm mt-4">
+  {% csrf_token %}
+
+  <div class="mb-3">
+    <label class="form-label">{{ seleccion_form.equipo.label }}:</label>
+    {{ seleccion_form.equipo }}
+  </div>
+
+  <button type="submit" class="btn btn-primary rounded-pill">
+    Continuar a Diagnóstico
+  </button>
+  <a href="/recepcion/listado/" class="btn btn-secondary rounded-pill ms-2"
+    >Cancelar</a
+  >
+</form>
+
+{% endif %} {% endblock content %}
