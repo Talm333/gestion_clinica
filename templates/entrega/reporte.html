@@ -1,34 +1,30 @@
-{% extends "base.html" %}
-{% block content %}
-<h2>Registrar estado final de entrega</h2>
-<form method="post" class="card p-4 shadow-sm mb-3">
-    {% csrf_token %}
-    <div class="mb-3">
-        <label class="form-label">Cliente:</label>
-        <input type="text" name="cliente" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Equipo:</label>
-        <input type="text" name="equipo" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Diagnóstico:</label>
-        <input type="text" name="diagnostico" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Estado final:</label>
-        <select name="estado_final" class="form-select" required>
-            <option value="entregado">Entregado</option>
-            <option value="pendiente">Pendiente</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Observaciones:</label>
-        <input type="text" name="observaciones" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-success">Registrar entrega</button>
-</form>
+{% extends "base.html" %} {% block content %}
+<h2>Registrar Entrega de Equipo</h2>
+
 {% if mensaje %}
-    <div class="alert alert-success">{{ mensaje }}</div>
+<div class="alert alert-success">{{ mensaje }}</div>
 {% endif %}
+
+<div class="alert alert-info">
+  Solo aparecerán en la lista los equipos que ya han sido diagnosticados pero
+  aún no han sido entregados.
+</div>
+
+<form method="post" class="card p-4 shadow-sm">
+  {% csrf_token %} {% if form.errors %}
+  <div class="alert alert-danger">{{ form.errors }}</div>
+  {% endif %}
+
+  <div class="mb-3">
+    <label class="form-label">{{ form.diagnostico.label }}:</label>
+    {{ form.diagnostico }}
+  </div>
+
+  <button type="submit" class="btn btn-primary rounded-pill">
+    Registrar Entrega
+  </button>
+  <a href="/entrega/verificar/" class="btn btn-secondary rounded-pill ms-2"
+    >Cancelar</a
+  >
+</form>
 {% endblock content %}
