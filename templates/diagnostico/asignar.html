@@ -5,15 +5,24 @@
   {% csrf_token %} {% if messages %} {% for message in messages %}
   <div class="alert alert-{{ message.tags }}">{{ message }}</div>
   {% endfor %} {% endif %}
+  {% if form.non_field_errors %}
+  <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+  {% endif %}
 
   <div class="mb-3">
     <label class="form-label">{{ form.equipo.label }}:</label>
     {{ form.equipo }}
+    {% if form.equipo.errors %}
+    <div class="invalid-feedback d-block">{{ form.equipo.errors }}</div>
+    {% endif %}
   </div>
 
   <div class="mb-3">
     <label class="form-label">{{ form.estudiante.label }}:</label>
     {{ form.estudiante }}
+    {% if form.estudiante.errors %}
+    <div class="invalid-feedback d-block">{{ form.estudiante.errors }}</div>
+    {% endif %}
   </div>
 
   <div class="text-center my-2 fw-bold text-muted">- O -</div>
@@ -21,6 +30,9 @@
   <div class="mb-3">
     <label class="form-label">{{ form.nuevo_estudiante.label }}:</label>
     {{ form.nuevo_estudiante }}
+    {% if form.nuevo_estudiante.errors %}
+    <div class="invalid-feedback d-block">{{ form.nuevo_estudiante.errors }}</div>
+    {% endif %}
   </div>
 
   <button type="submit" class="btn btn-primary">Asignar Equipo</button>
