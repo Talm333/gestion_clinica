@@ -41,4 +41,4 @@ def api_eliminar_equipo(request, id):
         return Response({'error': 'Equipo no encontrado'}, status=status.HTTP_404_NOT_FOUND)
     
     equipo.delete()
-    return Response({'mensaje': 'Equipo eliminado correctamente'}, status=status.HTTP_204_NO_CONTENT)
+    return Response({'mensaje': 'Equipo eliminado correctamente'}, status=status.HTTP_200_OK)
